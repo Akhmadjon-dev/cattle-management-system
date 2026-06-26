@@ -36,4 +36,34 @@ const initDatabase = (): void => {
 
 initDatabase();
 
+// Query helpers for cleaner code in routes
+export const queries: Record<string, Database.Statement<unknown[]>> = {
+  // Cattle queries
+  getCattle: db.prepare('SELECT * FROM cattle WHERE id = ?'),
+  getAllCattle: db.prepare('SELECT * FROM cattle ORDER BY created_at DESC'),
+  getCattleByTag: db.prepare('SELECT * FROM cattle WHERE tag = ?'),
+  getCattleByStatus: db.prepare('SELECT * FROM cattle WHERE status = ? ORDER BY created_at DESC'),
+  createCattle: db.prepare(`
+    INSERT INTO cattle (id, tag, breed, gender, birth_date, status, created_at, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  `),
+  updateCattle: db.prepare(`
+    UPDATE cattle SET tag = ?, breed = ?, gender = ?, birth_date = ?, status = ?, updated_at = ?
+    WHERE id = ?
+  `),
+  updateCattleStatus: db.prepare('UPDATE cattle SET status = ?, updated_at = ? WHERE id = ?'),
+  deleteCattle: db.prepare('DELETE FROM cattle WHERE id = ?'),
+  countCattle: db.prepare('SELECT COUNT(*) as count FROM cattle'),
+  countByStatus: db.prepare('SELECT status, COUNT(*) as count FROM cattle GROUP BY status'),
+
+  // Health events queries
+  getHealthEvents: db.prepare('SELECT * FROM health_events WHERE cattle_id = ? ORDER BY date DESC'),
+  getHealthEvent: db.prepare('SELECT * FROM health_events WHERE id = ?'),
+  createHealthEvent: db.prepare(`
+    INSERT INTO health_events (id, cattle_id, type, date, notes, created_at)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `),
+  deleteHealthEvent: db.prepare('DELETE FROM health_events WHERE id = ?'),
+};
+
 export default db;
