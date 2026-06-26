@@ -1,0 +1,19 @@
+/node_modules
+*node_modules/
+.env
+.env.local
+.DS_Store
+
+# Compiled output
+dist/
+build/
+
+# Generated TypeScript files in dist folders
+**/*.d.ts.map
+**/*.js.map
+server/dist/**
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
