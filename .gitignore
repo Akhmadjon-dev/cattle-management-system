@@ -17,3 +17,7 @@ server/dist/**
 *.db
 *.db-shm
 *.db-wal
+
+# Local documentation files
+READY_FOR_DEMO.md
+TIER1_FRONTEND_COMPLETE.md
