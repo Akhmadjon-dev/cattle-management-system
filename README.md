@@ -59,7 +59,7 @@ The client uses a thin fetch wrapper (`src/api.js`) with the following endpoints
 
 ### Frontend (.env)
 ```
-VITE_API_URL=http://localhost:3000/api
+VITE_API_URL=http://localhost:3001/api
 ```
 
 ## Tech Stack
